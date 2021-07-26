@@ -268,10 +268,11 @@ class SQLQueryHandler {
 
 		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 
-		$lQueryString = $this->mMySQLHandler->prepareQuery('SELECT username FROM account WHERE username = ?');
-		$lQueryString->bind_param('s', $pUsername);
+		$lQueryString = "SELECT username FROM account WHERE username = ?";
+		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
+		$stmt->bind_param('s', $pUsername);
 
-		$lQueryResult = this->mMySQLHandler->executeQuery($lQueryString);
+		$lQueryResult = this->mMySQLHandler->executeQuery($stmt);
 
 		if (isset($lQueryResult->num_rows)){
 			return ($lQueryResult->num_rows > 0);
