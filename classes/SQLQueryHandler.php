@@ -266,18 +266,12 @@ class SQLQueryHandler {
 
 	public function accountExists($pUsername){
 
-		// if ($this->stopSQLInjection == TRUE){
-			$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
-		// }// end if
+		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 
-		// $lQueryString =
-		// "SELECT username FROM accounts WHERE username='".$pUsername."';";
+		$lQueryString = $this->mMySQLHandler->prepare('SELECT username FROM account WHERE username = $');
+		$lQueryString->bind_param('s', $pUsername);
 
-		$stmt = $this->mMySQLHandler->mMySQLConnection->prepare('SELECT username FROM account WHERE username = $');
-		$stmt->bind_param('s', $pUsername);
-
-		// $lQueryResult = $this->mMySQLHandler->executeQuery($lQueryString);
-		$lQueryResult = this->mMySQLHandler->executeQuery($stmt);
+		$lQueryResult = this->mMySQLHandler->executeQuery($lQueryString);
 
 		if (isset($lQueryResult->num_rows)){
 			return ($lQueryResult->num_rows > 0);
@@ -289,10 +283,8 @@ class SQLQueryHandler {
 
 	public function authenticateAccount($pUsername, $pPassword){
 
-		if ($this->stopSQLInjection == TRUE){
-			$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
-			$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
-		}// end if
+		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
+		$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
 
 		$lQueryString =
 			"SELECT username ".
