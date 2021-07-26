@@ -89,7 +89,7 @@
 			</tr>
 			<tr><td></td></tr>
 			<tr>
-				<td colspan="2" class="form-header">Please sign-in</td>
+				<td colspan="2" class="form-header">PLEASE SIGN-IN</td>
 			</tr>
 			<tr><td></td></tr>
 			<tr>
