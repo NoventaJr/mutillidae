@@ -62,6 +62,7 @@
    		    }// end if
    			$lKeepGoing = FALSE;
    			logLoginAttempt("Login Failed: Account {$lUsername} does not exist");
+			sleep(1);
    		}// end if accountExists
 
 		if ($lKeepGoing){
@@ -73,6 +74,7 @@
    			    }// end if
 	   			$lKeepGoing = FALSE;
 	   			logLoginAttempt("Login Failed: Password for {$lUsername} incorrect");
+				   sleep(1);
 	   		}//end if authenticateAccount
    		}//end if $lKeepGoing
 
