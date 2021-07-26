@@ -270,7 +270,7 @@ class SQLQueryHandler {
 
 		$lQueryString = "SELECT username FROM account WHERE username = ?";
 		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
-		$stmt->bind_param('s', $pUsername);
+		$stmt->bind_param("s", $pUsername);
 
 		$lQueryResult = this->mMySQLHandler->executeQuery($stmt);
 
