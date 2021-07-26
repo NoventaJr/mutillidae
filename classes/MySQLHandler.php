@@ -328,4 +328,8 @@ class MySQLHandler {
 		$this->doCloseDatabaseConnection();
 	}// end public function closeDatabaseConnection
 
+	public function prepareQuery($pQueryString){
+		return $this->mMySQLConnection->prepare($pQueryString);
+	}
+
 }// end class
