@@ -268,7 +268,7 @@ class SQLQueryHandler {
 
 		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 
-		$lQueryString = $this->mMySQLHandler->prepare('SELECT username FROM account WHERE username = $');
+		$lQueryString = $this->mMySQLHandler->mMySQLConnection->prepare('SELECT username FROM account WHERE username = $');
 		$lQueryString->bind_param('s', $pUsername);
 
 		$lQueryResult = this->mMySQLHandler->executeQuery($lQueryString);
