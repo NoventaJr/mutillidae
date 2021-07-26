@@ -272,7 +272,7 @@ class SQLQueryHandler {
 		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
 		$stmt->bind_param("s", $pUsername);
 
-		$lQueryResult = this->mMySQLHandler->executeQuery($stmt);
+		$lQueryResult = $this->mMySQLHandler->executeQuery($stmt);
 
 		if (isset($lQueryResult->num_rows)){
 			return ($lQueryResult->num_rows > 0);
