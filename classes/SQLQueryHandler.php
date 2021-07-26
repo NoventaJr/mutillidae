@@ -266,14 +266,18 @@ class SQLQueryHandler {
 
 	public function accountExists($pUsername){
 
-		if ($this->stopSQLInjection == TRUE){
+		// if ($this->stopSQLInjection == TRUE){
 			$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
-		}// end if
+		// }// end if
 
-		$lQueryString =
-		"SELECT username FROM accounts WHERE username='".$pUsername."';";
+		// $lQueryString =
+		// "SELECT username FROM accounts WHERE username='".$pUsername."';";
 
-		$lQueryResult = $this->mMySQLHandler->executeQuery($lQueryString);
+		$stmt = $this->mMySQLHandler->mMySQLConnection->prepare('SELECT username FROM account WHERE username = $');
+		$stmt->bind_param('s', $pUsername);
+
+		// $lQueryResult = $this->mMySQLHandler->executeQuery($lQueryString);
+		$lQueryResult = this->mMySQLHandler->executeQuery($stmt);
 
 		if (isset($lQueryResult->num_rows)){
 			return ($lQueryResult->num_rows > 0);
