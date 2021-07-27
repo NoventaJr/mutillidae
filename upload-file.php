@@ -83,24 +83,22 @@
 			}//end if UPLOAD_ERR_OK
 			
 			$lFileValid = TRUE;
-			if ($lValidateFileUpload){
-				$lValidationMessage = "Validation performed.";
-				
-				if (!in_array($lFileExtension, $lAllowedFileExtensions)) {
-					$lValidationMessage .= " File extension {$lFileExtension} not allowed.";
-					$lFileValid = FALSE;
-				}// end if
+			$lValidationMessage = "Validation performed.";
+			
+			if (!in_array($lFileExtension, $lAllowedFileExtensions)) {
+				$lValidationMessage .= " File extension {$lFileExtension} not allowed.";
+				$lFileValid = FALSE;
+			}// end if
 
-				if (!in_array($lFileType, $lAllowedFileTypes)) {
-					$lValidationMessage .= " File type {$lFileType} not allowed.";
-					$lFileValid = FALSE;
-				}// end if
-	
-				if ($lFileSize > $lAllowedFileSize){
-					$lValidationMessage .= "File size {$lFileSizeString} exceeds allowed file size {$lAllowedFileSizeString}.";
-					$lFileValid = FALSE;
-				}// end if
-			}// end if $lValidateFileUpload
+			if (!in_array($lFileType, $lAllowedFileTypes)) {
+				$lValidationMessage .= " File type {$lFileType} not allowed.";
+				$lFileValid = FALSE;
+			}// end if
+
+			if ($lFileSize > $lAllowedFileSize){
+				$lValidationMessage .= "File size {$lFileSizeString} exceeds allowed file size {$lAllowedFileSizeString}.";
+				$lFileValid = FALSE;
+			}// end if
 			
 			if ($lFileValid){
 				if (move_uploaded_file($lFileTempName, $lFilePermanentName)) {
