@@ -236,6 +236,22 @@ class MySQLHandler {
 
 	}// end private function executeQuery
 
+	private function doExecuteQuerySTMT($stmt){
+
+		try {
+			$lResult = $stmt->execute();
+
+			if (!$lResult) {
+		    	throw (new Exception("Error executing query: ".$this->serializeMySQLImprovedObjectProperties().")"));
+		    }// end if there are no results
+
+		    return $lResult;
+		} catch (Exception $e) {
+			throw(new Exception($this->mCustomErrorHandler->getExceptionMessage($e, "Query: " . $this->Encoder->encodeForHTML($pQueryString))));
+		}// end function
+
+	}
+
 	/* ------------------------------------------
  	 * PUBLIC METHODS
  	 * ------------------------------------------ */
@@ -330,6 +346,10 @@ class MySQLHandler {
 
 	public function prepareQuery($pQueryString){
 		return $this->mMySQLConnection->prepare($pQueryString);
+	}
+
+	public function executeQuerySTMT($stmt){
+		return $this->doExecuteQuerySTMT($stmt);
 	}
 
 }// end class
