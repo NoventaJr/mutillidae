@@ -287,12 +287,6 @@ class SQLQueryHandler {
 		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 		$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
 
-		// $lQueryString =
-		// 	"SELECT username ".
-		// 	"FROM accounts ".
-		// 	"WHERE username='".$pUsername."' ".
-		// 	"AND password='".$pPassword."';";
-
 		$lQueryString = "SELECT username FROM accounts WHERE username = ? AND password = ?;";
 		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
 		$stmt->bind_param("ss", $pUsername, $pPassword);
@@ -341,15 +335,19 @@ class SQLQueryHandler {
  		 * Using stored procedures is a much stronger defense.
  		 */
 
-		if ($this->stopSQLInjection == TRUE){
-			$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
-			$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
-		}// end if
+		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
+		$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
 
-		$lQueryString =
-			"SELECT * FROM accounts
-			WHERE username='".$pUsername.
-			"' AND password='".$pPassword."'";
+		// $lQueryString =
+		// 	"SELECT * FROM accounts
+		// 	WHERE username='".$pUsername.
+		// 	"' AND password='".$pPassword."'";
+
+		$lQueryString = "SELECT * FROM accounts WHERE username = ? AND password = ?;";
+		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
+		$stmt->bind_param("ss", $pUsername, $pPassword);
+
+		$lQueryResult = $this->mMySQLHandler->executeQuerySTMT($stmt);
 
 		return $this->mMySQLHandler->executeQuery($lQueryString);
 	}//end public function getUserAccount
