@@ -287,13 +287,17 @@ class SQLQueryHandler {
 		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 		$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
 
-		$lQueryString =
-			"SELECT username ".
-			"FROM accounts ".
-			"WHERE username='".$pUsername."' ".
-			"AND password='".$pPassword."';";
+		// $lQueryString =
+		// 	"SELECT username ".
+		// 	"FROM accounts ".
+		// 	"WHERE username='".$pUsername."' ".
+		// 	"AND password='".$pPassword."';";
 
-		$lQueryResult = $this->mMySQLHandler->executeQuery($lQueryString);
+		$lQueryString = "SELECT username FROM accounts WHERE username = ? AND password = ?;"
+		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
+		$stmt->bind_param("ss", $pUsername, $pPassword);
+
+		$lQueryResult = $this->mMySQLHandler->executeQuerySTMT($stmt);
 
 		if (isset($lQueryResult->num_rows)){
 			return ($lQueryResult->num_rows > 0);
