@@ -349,7 +349,7 @@ class SQLQueryHandler {
 
 		$lQueryResult = $this->mMySQLHandler->executeQuerySTMT($stmt);
 
-		return $this->mMySQLHandler->executeQuery($lQueryString);
+		return $lQueryResult;
 	}//end public function getUserAccount
 
 	/* -----------------------------------------
