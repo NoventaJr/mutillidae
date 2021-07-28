@@ -338,11 +338,6 @@ class SQLQueryHandler {
 		$pUsername = $this->mMySQLHandler->escapeDangerousCharacters($pUsername);
 		$pPassword = $this->mMySQLHandler->escapeDangerousCharacters($pPassword);
 
-		// $lQueryString =
-		// 	"SELECT * FROM accounts
-		// 	WHERE username='".$pUsername.
-		// 	"' AND password='".$pPassword."'";
-
 		$lQueryString = "SELECT * FROM accounts WHERE username = ? AND password = ?;";
 		$stmt = $this->mMySQLHandler->prepareQuery($lQueryString);
 		$stmt->bind_param("ss", $pUsername, $pPassword);
